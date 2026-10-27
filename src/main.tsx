@@ -7,13 +7,15 @@ import { Login } from './Login';
 import { DEFAULT_CONFIG } from './lib/config';
 import { DataProvider } from './lib/data';
 import { cloudStore, localStore } from './lib/store';
-import { configError, supabase } from './lib/supabase';
+import { configError, openAccess, supabase } from './lib/supabase';
+import type { Store } from './lib/store';
 import './styles.css';
 
 const ME_KEY = 'builder-hq.me';
 
-function LocalApp() {
-  const store = useMemo(() => localStore(), []);
+/** No login: the person picks who they are, remembered in this browser. */
+function PickedUserApp({ makeStore }: { makeStore: () => Store }) {
+  const store = useMemo(makeStore, [makeStore]);
   const [me, setMeState] = useState(() => {
     try {
       return localStorage.getItem(ME_KEY) ?? DEFAULT_CONFIG.team[0].name;
@@ -101,7 +103,8 @@ function Root() {
         <p className="muted small">In Netlify: Site configuration, Environment variables. Fix the value, then trigger a new deploy so the build picks it up.</p>
       </Problem>
     );
-  return supabase ? <CloudApp /> : <LocalApp />;
+  if (!supabase) return <PickedUserApp makeStore={localStore} />;
+  return openAccess ? <PickedUserApp makeStore={cloudStore} /> : <CloudApp />;
 }
 
 createRoot(document.getElementById('root')!).render(

@@ -134,9 +134,11 @@ function Settings({ onClose }: { onClose: () => void }) {
         </header>
         <div className="modal-body">
           <p className="muted">
-            {mode === 'cloud'
-              ? 'Synced with Supabase. Changes show up for the whole team straight away.'
-              : 'Local mode. Data stays in this browser. Add Supabase keys to share it with the team.'}
+            {mode === 'local'
+              ? 'Local mode. Data stays in this browser. Add Supabase keys to share it with the team.'
+              : signOut
+                ? 'Synced with Supabase. Changes show up for the whole team straight away.'
+                : 'Open access: synced for the team, and anyone with this link can view and edit. Download a backup regularly.'}
           </p>
           {setMe && (
             <label className="field">

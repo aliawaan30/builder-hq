@@ -27,7 +27,17 @@ With no Supabase keys it runs in local mode: data stays in your browser. It star
 2. Site configuration, Environment variables: add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 3. Deploy. Sign in and add your first task.
 
-## Deploy checklist
+## Open access (current setup)
+
+No login. Anyone with the link can view, edit and delete, so keep sensitive client details out and download a backup weekly from Settings.
+
+1. Supabase SQL Editor: run `supabase/schema.sql`, then `supabase/open-access.sql`.
+2. Netlify environment variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (publishable key) and `VITE_OPEN_ACCESS` = `true`. Deploy.
+3. Each person picks who they are in Settings. It is remembered in their browser.
+
+To add login later: run `supabase/lock.sql`, add users under Authentication, Users, delete `VITE_OPEN_ACCESS` in Netlify and redeploy.
+
+## Deploy checklist (with login)
 
 1. New Supabase project, not the live onboarding one.
 2. Run `supabase/schema.sql`.

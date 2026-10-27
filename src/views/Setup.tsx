@@ -49,7 +49,7 @@ export function Setup() {
 
   const dirty = !same(draft, config);
   const savedSelf = config.team.find((m) =>
-    mode === 'cloud' ? !!myEmail && m.email.toLowerCase() === myEmail.toLowerCase() : m.name === me,
+    myEmail ? m.email.toLowerCase() === myEmail.toLowerCase() : m.name === me,
   );
   const isSelf = (m: Member) => m.id === savedSelf?.id;
 
@@ -112,7 +112,7 @@ export function Setup() {
     const emails = draft.team.map((m) => m.email.trim().toLowerCase()).filter(Boolean);
     if (emails.some((e) => !EMAIL.test(e))) return 'One of the emails is not valid.';
     if (new Set(emails).size !== emails.length) return 'Two team members have the same email.';
-    if (mode === 'cloud' && draft.team.some((m) => !m.email.trim())) return 'Every team member needs an email to sign in.';
+    if (mode === 'cloud' && myEmail && draft.team.some((m) => !m.email.trim())) return 'Every team member needs an email to sign in.';
     if (draft.workstreams.some((w) => !w.label.trim())) return 'Every workstream needs a name.';
     for (const o of OFFERS) if (draft.stages[o.id].some((s) => !s.label.trim())) return `Every ${o.label} stage needs a name.`;
     return null;
@@ -164,7 +164,7 @@ export function Setup() {
     try {
       await saveConfig(next);
       await Promise.all([saveMany('tasks', tasks), saveMany('clients', clients), saveMany('meetings', meetings)]);
-      if (mode === 'cloud') await syncAccess(next.team);
+      if (mode === 'cloud' && myEmail) await syncAccess(next.team);
       if (setMe && savedSelf) {
         const renamed = nameById.get(savedSelf.id);
         if (renamed && renamed !== me) setMe(renamed);
@@ -223,7 +223,7 @@ export function Setup() {
                 <div className="member-grid">
                   <label className="field">
                     <span className="field-label">Email</span>
-                    <input type="email" value={m.email} readOnly={mode === 'cloud' && self} onChange={(e) => setMember(m.id, { email: e.target.value })} placeholder="name@company.com" />
+                    <input type="email" value={m.email} readOnly={!!myEmail && self} onChange={(e) => setMember(m.id, { email: e.target.value })} placeholder="name@company.com" />
                   </label>
                   <label className="field">
                     <span className="field-label">Place</span>
