@@ -123,8 +123,9 @@ begin
   end loop;
 end $$;
 
--- First sign in. Replace with real emails. After that, manage people on the Setup page.
+-- Who can see the data. Each person also needs a login: Authentication, Users, Add user.
+delete from public.team_members where email like '%@example.com';
 insert into public.team_members (email, name) values
-  ('ali@example.com', 'Ali'),
-  ('blake@example.com', 'Blake')
+  ('ali@theaiagencybuilder.com', 'Ali'),
+  ('blake@theaiagencybuilder.com', 'Blake')
 on conflict (email) do nothing;

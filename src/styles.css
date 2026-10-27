@@ -1697,3 +1697,19 @@ textarea:focus {
     opacity: 1;
   }
 }
+
+.password {
+  position: relative;
+  display: block;
+}
+
+.password input {
+  padding-right: 64px;
+}
+
+.password .btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}

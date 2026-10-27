@@ -22,8 +22,8 @@ const stage = (id: string, label: string, won: boolean, closed = false): Stage =
 
 export const DEFAULT_CONFIG: Config = {
   team: [
-    { id: 'ali', name: 'Ali', email: '', tz: 'Asia/Karachi', place: 'Pakistan', start: 9, end: 18, color: '#2F4FD6' },
-    { id: 'blake', name: 'Blake', email: '', tz: 'Australia/Brisbane', place: 'Gold Coast', start: 9, end: 18, color: '#C26A1B' },
+    { id: 'ali', name: 'Ali', email: 'ali@theaiagencybuilder.com', tz: 'Asia/Karachi', place: 'Pakistan', start: 9, end: 18, color: '#2F4FD6' },
+    { id: 'blake', name: 'Blake', email: 'blake@theaiagencybuilder.com', tz: 'Australia/Brisbane', place: 'Gold Coast', start: 9, end: 18, color: '#C26A1B' },
   ],
   workstreams: [
     { id: 'onboarding', label: 'Onboarding flow', color: '#0E8A7E' },

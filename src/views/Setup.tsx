@@ -193,7 +193,7 @@ export function Setup() {
           <div>
             <h2>Team</h2>
             <p className="muted small">
-              {mode === 'cloud' ? 'People listed here can sign in. Hours drive the overlap view on Today.' : 'Hours drive the overlap view on Today.'}
+              {mode === 'cloud' ? 'People listed here can see the data. New people also need a login in Supabase: Authentication, Users, Add user. Hours drive the overlap view on Today.' : 'Hours drive the overlap view on Today.'}
             </p>
           </div>
           <button type="button" className="btn" onClick={addMember}>
