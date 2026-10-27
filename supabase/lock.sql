@@ -1,4 +1,5 @@
 -- Turns open access off. Only signed in team members can see data again.
+-- Also delete the OPEN ACCESS block at the end of schema.sql, and set VITE_REQUIRE_LOGIN=true in Netlify.
 drop policy if exists "open tasks" on public.tasks;
 drop policy if exists "open meetings" on public.meetings;
 drop policy if exists "open clients" on public.clients;

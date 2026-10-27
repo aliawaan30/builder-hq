@@ -24,8 +24,8 @@ function connect(): SupabaseClient | null {
   }
 }
 
-/** No login screen. Everyone with the link can read and write. */
-export const openAccess = import.meta.env.VITE_OPEN_ACCESS?.trim().toLowerCase() === 'true';
+/** Login is off unless switched on. With it off, everyone with the link can read and write. */
+export const requireLogin = import.meta.env.VITE_REQUIRE_LOGIN?.trim().toLowerCase() === 'true';
 
 /** Null when keys are missing or invalid. Missing keys mean local mode. */
 export const supabase: SupabaseClient | null = connect();

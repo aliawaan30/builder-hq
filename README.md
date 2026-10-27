@@ -27,17 +27,21 @@ With no Supabase keys it runs in local mode: data stays in your browser. It star
 2. Site configuration, Environment variables: add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 3. Deploy. Sign in and add your first task.
 
-## Open access (current setup)
+## No login (current setup)
 
-No login. Anyone with the link can view, edit and delete, so keep sensitive client details out and download a backup weekly from Settings.
+Anyone with the link can view, edit and delete, so keep sensitive client details out and download a backup weekly from Settings.
 
-1. Supabase SQL Editor: run `supabase/schema.sql`, then `supabase/open-access.sql`.
-2. Netlify environment variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (publishable key) and `VITE_OPEN_ACCESS` = `true`. Deploy.
+1. Supabase SQL Editor: run `supabase/schema.sql`.
+2. Netlify environment variables: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (the publishable key). Deploy.
 3. Each person picks who they are in Settings. It is remembered in their browser.
 
-To add login later: run `supabase/lock.sql`, add users under Authentication, Users, delete `VITE_OPEN_ACCESS` in Netlify and redeploy.
+## Turning login on later
 
-## Deploy checklist (with login)
+1. Run `supabase/lock.sql`, and delete the OPEN ACCESS block at the end of `schema.sql`.
+2. Supabase: Authentication, Users, add each person with Auto Confirm User ticked. Turn off new sign ups.
+3. Netlify: add `VITE_REQUIRE_LOGIN` = `true` and redeploy.
+
+## Login checklist (for later)
 
 1. New Supabase project, not the live onboarding one.
 2. Run `supabase/schema.sql`.

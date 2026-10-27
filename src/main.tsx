@@ -7,7 +7,7 @@ import { Login } from './Login';
 import { DEFAULT_CONFIG } from './lib/config';
 import { DataProvider } from './lib/data';
 import { cloudStore, localStore } from './lib/store';
-import { configError, openAccess, supabase } from './lib/supabase';
+import { configError, requireLogin, supabase } from './lib/supabase';
 import type { Store } from './lib/store';
 import './styles.css';
 
@@ -104,7 +104,7 @@ function Root() {
       </Problem>
     );
   if (!supabase) return <PickedUserApp makeStore={localStore} />;
-  return openAccess ? <PickedUserApp makeStore={cloudStore} /> : <CloudApp />;
+  return requireLogin ? <CloudApp /> : <PickedUserApp makeStore={cloudStore} />;
 }
 
 createRoot(document.getElementById('root')!).render(
